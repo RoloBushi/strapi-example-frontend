@@ -10,6 +10,7 @@ import Nav from '@/components/Nav';
 import { getHomepage } from '@/api/api';
 import { HomeInfo } from '@/types/page';
 import { getServerGlobalProps } from '@/utils/server';
+import { url } from '@/env';
 
 const Home: FC<HomeInfo> = ({ meta, navbar, footer, header, textBlock = [] }) => (
   <Box pb="150px">
@@ -19,7 +20,7 @@ const Home: FC<HomeInfo> = ({ meta, navbar, footer, header, textBlock = [] }) =>
     {textBlock.map((block) => (
       <Blocks key={block.id} {...block} />
     ))}
-    SAPEEEE
+    SAPEEEE {process.env.NEXT_PUBLIC_URL} {url}
     <Footer {...footer} />
   </Box>
 );
