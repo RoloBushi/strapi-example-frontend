@@ -1,6 +1,6 @@
 import omit from 'lodash/omit';
 
-import { Error, GenericObject } from '@/types/page';
+import { ErrorMessage, GenericObject } from '@/types/page';
 
 export const parseComponent = (component: string) => component.replace('elements.', '');
 
@@ -54,7 +54,7 @@ export const getLocaleAsParam = (locale?: string, prefix: string = '?') => {
   return `${prefix}locale=${locale}`;
 };
 
-export const throwError = (error: Error | string) => {
+export const throwError = (error: ErrorMessage | string) => {
   const errorMessage = typeof error !== 'string' ? error.message : error;
   throw new Error(errorMessage ?? error);
 };

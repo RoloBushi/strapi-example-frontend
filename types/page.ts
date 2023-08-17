@@ -161,7 +161,7 @@ export interface DetailsInfo extends HomeInfo {
   director?: DirectorInfo;
 }
 
-export interface Error extends GenericObject {
+export interface ErrorMessage extends GenericObject {
   status: number;
   message: string;
 }
