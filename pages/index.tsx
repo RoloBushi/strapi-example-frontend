@@ -19,6 +19,7 @@ const Home: FC<HomeInfo> = ({ meta, navbar, footer, header, textBlock = [] }) =>
     {textBlock.map((block) => (
       <Blocks key={block.id} {...block} />
     ))}
+    SAPEEEE
     <Footer {...footer} />
   </Box>
 );
