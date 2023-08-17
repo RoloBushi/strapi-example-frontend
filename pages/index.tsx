@@ -12,23 +12,26 @@ import { HomeInfo } from '@/types/page';
 import { getServerGlobalProps } from '@/utils/server';
 import { url } from '@/env';
 
-const Home: FC<HomeInfo> = ({ meta, navbar, footer, header, textBlock = [] }) => (
-  <Box pb="150px">
-    <Meta {...meta} />
-    <Nav {...navbar} />
-    {header && <Hero {...header} />}
-    {textBlock.map((block) => (
-      <Blocks key={block.id} {...block} />
-    ))}
-    <Footer {...footer} />
-  </Box>
-);
+const Home: FC<HomeInfo> = (props) => {
+  console.log(props);
+  const { meta, navbar, footer, header, textBlock } = props;
+
+  return (
+    <Box pb="150px">
+      <Meta {...meta} />
+      <Nav {...navbar} />
+      {header && <Hero {...header} />}
+      {(textBlock ?? []).map((block) => (
+        <Blocks key={block.id} {...block} />
+      ))}
+      <Footer {...footer} />
+    </Box>
+  );
+};
 
 export async function getServerSideProps(params: any) {
   const homepageInfo = await getHomepage(params?.locale);
   const components = await getServerGlobalProps(params?.locale);
-
-  console.log(homepageInfo);
 
   return {
     props: {

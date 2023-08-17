@@ -30,8 +30,6 @@ const Slug: FC<PageInfo> = ({ data, navbar, meta, footer, textBlock }) => {
             const imageWidth = attributes.poster?.data?.attributes?.formats?.thumbnail.width ?? 200;
             const imageHeight = attributes.poster?.data?.attributes?.formats?.thumbnail.height ?? 350;
 
-            console.log(attributes);
-
             return (
               <Link key={id} href={`${query.slug}/${attributes.Slug}`}>
                 <Flex direction="column">
@@ -66,8 +64,6 @@ export const getServerSideProps = async ({ params }: { params: any }) => {
 
   const slugpage = await getSlugpage(params?.slug ?? '', fields, populates);
   const components = await getGlobalComponents();
-
-  console.log(slugpage);
 
   return {
     props: {
