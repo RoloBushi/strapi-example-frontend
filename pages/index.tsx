@@ -20,7 +20,6 @@ const Home: FC<HomeInfo> = ({ meta, navbar, footer, header, textBlock = [] }) =>
     {textBlock.map((block) => (
       <Blocks key={block.id} {...block} />
     ))}
-    SAPEEEE {process.env.NEXT_PUBLIC_URL} {url}
     <Footer {...footer} />
   </Box>
 );
@@ -28,6 +27,8 @@ const Home: FC<HomeInfo> = ({ meta, navbar, footer, header, textBlock = [] }) =>
 export async function getServerSideProps(params: any) {
   const homepageInfo = await getHomepage(params?.locale);
   const components = await getServerGlobalProps(params?.locale);
+
+  console.log(homepageInfo);
 
   return {
     props: {
