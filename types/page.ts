@@ -160,3 +160,8 @@ export interface DetailsInfo extends HomeInfo {
   poster?: ImageContent | null;
   director?: DirectorInfo;
 }
+
+export interface Error extends GenericObject {
+  status: number;
+  message: string;
+}

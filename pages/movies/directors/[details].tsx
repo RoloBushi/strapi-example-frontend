@@ -16,7 +16,8 @@ import Meta from '@/components/Meta';
 import Nav from '@/components/Nav';
 import { DirectorInfo } from '@/types/page';
 import { getYear } from '@/utils/helpers/DateHelper';
-import { getGlobalComponents, getDetails } from '@/api/api';
+import { getGlobalComponents } from '@/utils/middlewares/components';
+import { getDetails } from '@/utils/middlewares/details';
 
 const Director: FC<DirectorInfo> = ({ navbar, footer, name, avatar, movies }) => {
   const imageRef = avatar?.data?.attributes;

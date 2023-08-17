@@ -11,7 +11,8 @@ import Nav from '@/components/Nav';
 import { url } from '@/env';
 import { PageInfo } from '@/types/page';
 import { getYear } from '@/utils/helpers/DateHelper';
-import { getGlobalComponents, getSlugpage } from '@/api/api';
+import { getGlobalComponents } from '@/utils/middlewares/components';
+import { getSlugpage } from '@/utils/middlewares/page';
 
 const Slug: FC<PageInfo> = ({ data, navbar, meta, footer, textBlock }) => {
   const { query } = useRouter();

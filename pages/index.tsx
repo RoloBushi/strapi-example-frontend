@@ -7,11 +7,11 @@ import Blocks from '@/components/Blocks';
 import Hero from '@/components/Hero';
 import Meta from '@/components/Meta';
 import Nav from '@/components/Nav';
-import { getHomepage } from '@/api/api';
 import { HomeInfo } from '@/types/page';
+import { getHomepage } from '@/utils/middlewares/page';
 import { getServerGlobalProps } from '@/utils/server';
 
-const Home: FC<HomeInfo> = ({ meta, navbar, footer, header, textBlock }) => (
+const Home: FC<HomeInfo> = ({ meta, navbar, footer, header, textBlock = []}) => (
   <Box pb="150px">
     <Meta {...meta} />
     <Nav {...navbar} />

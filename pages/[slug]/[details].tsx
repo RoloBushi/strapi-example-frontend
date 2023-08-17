@@ -11,7 +11,8 @@ import Nav from '@/components/Nav';
 import { url } from '@/env';
 import { DetailsInfo } from '@/types/page';
 import { getYear } from '@/utils/helpers/DateHelper';
-import { getDetails, getGlobalComponents } from '@/api/api';
+import { getGlobalComponents } from '@/utils/middlewares/components';
+import { getDetails } from '@/utils/middlewares/details';
 
 const Details: FC<DetailsInfo> = ({
   Name,
