@@ -84,14 +84,14 @@ export interface MetaProps {
   title?: string | null;
   description?: string | null;
   preventIndexing?: boolean | null;
-  content: MetaContent[];
+  content?: MetaContent[];
 }
 
 export interface HeroProps {
   id: any;
   title?: string;
   Subtitle?: string | null;
-  hero?: { data: ImageAttributes[] };
+  hero?: { data?: ImageAttributes[] | null };
 }
 
 export interface HeaderProps {

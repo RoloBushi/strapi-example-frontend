@@ -11,12 +11,7 @@ import { getHomepage } from '@/api/api';
 import { HomeInfo } from '@/types/page';
 import { getServerGlobalProps } from '@/utils/server';
 
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-
-import { useRouter } from 'next/router';
-
-const Home: FC<HomeInfo> = ({ meta, navbar, footer, header, textBlock }) => (
+const Home: FC<HomeInfo> = ({ meta, navbar, footer, header, textBlock = [] }) => (
   <Box pb="150px">
     <Meta {...meta} />
     <Nav {...navbar} />
