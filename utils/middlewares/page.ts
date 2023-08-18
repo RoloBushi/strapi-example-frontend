@@ -30,6 +30,7 @@ export const getSlugpage = async (
   populates: string[] = [],
   locale: string | undefined = undefined,
 ) => {
+  console.log(`${populatedPageUrl}&filters[Slug][$eq]=${slug}`);
   try {
     const paramLocale = getLocaleAsParam(locale, '&');
     const params = `filters[Slug][$eq]=${slug}${paramLocale}`;
