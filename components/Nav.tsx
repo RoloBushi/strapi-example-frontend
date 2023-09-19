@@ -38,10 +38,10 @@ const Nav: FC<HeaderProps> = ({
       right="0"
       mb="50px"
     >
-      {Logo?.data?.attributes?.url && (
+      {Logo?.data?.url && (
         <Image
-          src={`${url}${Logo.data.attributes?.url}`}
-          alt={Logo.data.attributes?.name}
+          src={`${url}${Logo.data.url}`}
+          alt={Logo.data.name}
         />
       )}
       <Flex gap="5px">
