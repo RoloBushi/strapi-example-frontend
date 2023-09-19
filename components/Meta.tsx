@@ -10,7 +10,7 @@ const Meta: FC<MetaProps> = ({
   content = [],
   description = '',
 }) => {
-  const imageUrl = image?.data?.attributes?.url ?  `${url}${image.data.attributes.url}` : null;
+  const imageUrl = image?.url ?  `${url}${image.url}` : null;
   const metaTags = [
     ...(description ? [{ name: 'description', content: description }] : []),
     ...(imageUrl ? [{ name: 'image', content: imageUrl }] : []),

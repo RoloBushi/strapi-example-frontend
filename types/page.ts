@@ -130,7 +130,7 @@ export interface MoviesInfo {
 }
 
 export interface PageInfo extends HomeInfo {
-  content: MoviesInfo[];
+  content?: MoviesInfo[];
 }
 
 export interface DirectorInfo extends HomeInfo {
