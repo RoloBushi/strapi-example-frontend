@@ -14,7 +14,7 @@ import { getYear } from '@/utils/helpers/DateHelper';
 import { getGlobalComponents } from '@/utils/middlewares/components';
 import { getSlugpage } from '@/utils/middlewares/page';
 
-const Slug: FC<PageInfo> = ({ data, navbar, meta, footer, textBlock }) => {
+const Slug: FC<PageInfo> = ({ content, navbar, meta, footer, textBlock }) => {
   const { query } = useRouter();
 
   return (
@@ -22,31 +22,31 @@ const Slug: FC<PageInfo> = ({ data, navbar, meta, footer, textBlock }) => {
       <Meta {...meta} />
       <Nav {...navbar} />
       <Box mt="50px" mx="10%">
-        {textBlock.map((block) => (
+        {textBlock?.map((block) => (
           <Blocks key={block.id} layerStyle="divMd" {...block} />
         ))}
         <Flex>
-          {data?.map(({ attributes, id }) => {
-            const imageUrl = attributes.poster?.data?.attributes?.formats?.thumbnail.url;
-            const imageWidth = attributes.poster?.data?.attributes?.formats?.thumbnail.width ?? 200;
-            const imageHeight = attributes.poster?.data?.attributes?.formats?.thumbnail.height ?? 350;
+          {content?.map(({ poster, Name, Slug, Year, id }) => {
+            const imageUrl = poster?.formats?.thumbnail.url;
+            const imageWidth = poster?.formats?.thumbnail.width ?? 200;
+            const imageHeight = poster?.formats?.thumbnail.height ?? 350;
 
             return (
-              <Link key={id} href={`${query.slug}/${attributes.Slug}`}>
+              <Link key={id ?? Name} href={`${query.slug}/${Slug}`}>
                 <Flex direction="column">
                   {imageUrl && (
                     <Image
                       w={imageWidth}
                       h={imageHeight}
                       src={`${url}${imageUrl}`}
-                      alt={attributes.poster?.data?.attributes?.name}
+                      alt={poster?.alternativeText ?? poster?.name}
                     />
                   )}
                   <Text mt="4px" fontSize="14px" fontWeight="600">
-                    {attributes.Name}
+                    {Name}
                   </Text>
                   <Text fontSize="13px">
-                    {getYear(attributes.Year)}
+                    {getYear(Year)}
                   </Text>
                 </Flex>
               </Link>
@@ -60,7 +60,7 @@ const Slug: FC<PageInfo> = ({ data, navbar, meta, footer, textBlock }) => {
 }
 
 export const getServerSideProps = async ({ params }: { params: any }) => {
-  const fields = ['name', 'year', 'Slug'];
+  const fields = ['Name', 'Year', 'Slug'];
   const populates = ['poster'];
 
   const slugpage = await getSlugpage(params?.slug ?? '', fields, populates);

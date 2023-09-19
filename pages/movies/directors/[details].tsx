@@ -20,10 +20,9 @@ import { getGlobalComponents } from '@/utils/middlewares/components';
 import { getDetails } from '@/utils/middlewares/details';
 
 const Director: FC<DirectorInfo> = ({ navbar, footer, name, avatar, movies }) => {
-  const imageRef = avatar?.data?.attributes;
-  const imageFormat = imageRef?.formats?.small;
-  const imageUrl = imageFormat?.url ?? imageRef?.url;
-  const imageWidth = imageFormat?.width ?? imageRef?.width;
+  const imageFormat = avatar?.formats?.small;
+  const imageUrl = imageFormat?.url ?? avatar?.url;
+  const imageWidth = imageFormat?.width ?? avatar?.width;
 
   return (
     <Box pb="150px" w="90%" mx="auto">
@@ -34,26 +33,26 @@ const Director: FC<DirectorInfo> = ({ navbar, footer, name, avatar, movies }) =>
           text={name}
           imageUrl={imageUrl}
           size={imageWidth ?? '150px'}
-          alt={imageRef?.alternativeText ?? name}
+          alt={avatar?.alternativeText ?? name}
         />
         <Text fontSize="32px" fontWeight="600" ml="25px">
           {name}
         </Text>
       </Grid>
       <Divider w="200px" my="60px" borderColor="gray.400" />
-      {movies?.data && movies.data.length > 0 && (
+      {movies && movies.length > 0 && (
         <Box>
           <Text fontSize="28px" fontWeight="600">Remarcable movies</Text>
           <List>
-            {movies.data.map((movie) => (
-              <ListItem key={movie.id} display="flex" alignItems="baseline">
-                <Link href={`/movies/${movie.attributes.Slug}`} passHref>
+            {movies.map((movie) => (
+              <ListItem key={movie.id ?? movie.Slug} display="flex" alignItems="baseline">
+                <Link href={`/movies/${movie.Slug}`} passHref>
                   <Text fontSize="24px" fontWeight="500">
-                    {movie.attributes.Name}
+                    {movie.Name}
                   </Text>
                 </Link>
                 <Text fontSize="16px" ml="2px">
-                  - {getYear(movie.attributes.Year)}
+                  - {getYear(movie.Year)}
                 </Text>
               </ListItem>
             ))}
@@ -65,8 +64,8 @@ const Director: FC<DirectorInfo> = ({ navbar, footer, name, avatar, movies }) =>
   )  
 };
 
-export const getServerSideProps = async ({ params }: { params: any }) => {
-  const details = await getDetails('directors', params.details);
+export const getServerSideProps = async (params: any) => {
+  const details = await getDetails('directors', params?.query?.details, params?.query?.locale);
   const components = await getGlobalComponents();
 
   return {

@@ -9,7 +9,7 @@ import Meta from '@/components/Meta';
 import Nav from '@/components/Nav';
 import { HomeInfo } from '@/types/page';
 import { getHomepage } from '@/utils/middlewares/page';
-import { getServerGlobalProps } from '@/utils/server';
+import { getGlobalComponents } from '@/utils/middlewares/components';
 
 const Home: FC<HomeInfo> = ({ meta, navbar, footer, header, textBlock = []}) => (
   <Box pb="150px">
@@ -24,8 +24,8 @@ const Home: FC<HomeInfo> = ({ meta, navbar, footer, header, textBlock = []}) => 
 );
 
 export async function getServerSideProps(params: any) {
-  const homepageInfo = await getHomepage(params?.locale);
-  const components = await getServerGlobalProps(params?.locale);
+  const homepageInfo = await getHomepage(params?.query?.locale);
+  const components = await getGlobalComponents(params?.query?.locale);
 
   return {
     props: {

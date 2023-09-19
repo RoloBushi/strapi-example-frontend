@@ -6,7 +6,7 @@ import { url } from '@/env';
 import { HeroProps } from '@/types/page';
 
 const Hero: FC<HeroProps> = ({ title, Subtitle, hero }) => {
-  const imageRef = hero?.data?.[0].attributes;
+  const imageRef = hero?.[0];
   const imageUrl = imageRef?.url ? `${url}${imageRef.url}` : null;
   
   return (

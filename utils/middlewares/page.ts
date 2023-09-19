@@ -1,8 +1,8 @@
 import axios from 'axios';
+import isEmpty from 'lodash/isEmpty';
 
-import { apiUrl } from '@/env';
+import { pageUrl } from '@/env';
 
-import { populatedPageUrl } from './constants';
 import {
   getDomFromAttributes,
   getLocaleAsParam,
@@ -12,12 +12,9 @@ import {
 
 export const getHomepage = async (locale?: string) => {
   try {
-    const paramLocale = getLocaleAsParam(locale, '&');
-    const params = `filters[isHome]=true${paramLocale}`;
-    const { data } = await axios.get(`${populatedPageUrl}&${params}`);
-    const attributes = (data?.data ?? []).find(Boolean)?.attributes;
-    const dom = getDomFromAttributes(attributes);
-    
+    const { data } = await axios.get(`${pageUrl}/homepage${getLocaleAsParam(locale)}`);
+    const dom = getDomFromAttributes(data);
+
     return dom;
   } catch (error) {
     throwError(error as any);
@@ -30,19 +27,15 @@ export const getSlugpage = async (
   populates: string[] = [],
   locale: string | undefined = undefined,
 ) => {
-  console.log(`${populatedPageUrl}&filters[Slug][$eq]=${slug}`);
   try {
-    const paramLocale = getLocaleAsParam(locale, '&');
-    const params = `filters[Slug][$eq]=${slug}${paramLocale}`;
-    const { data } = await axios.get(`${populatedPageUrl}&${params}`);
-    const attributes = (data?.data ?? []).find(Boolean)?.attributes;
-    const domAttributes = getDomFromAttributes(attributes);
+    const paramLocale = getLocaleAsParam(locale);
+    const fields = getParams(retrieve, 'fields', isEmpty(paramLocale) ? '?': '&');
+    const population = getParams(populates, 'populate', isEmpty(fields) ? '?' : '&');
 
-    const fields = getParams(retrieve, 'fields');
-    const population = getParams(populates, 'populate', !fields.length ? '?' : '&');
-    const { data: slugData } = await axios.get(`${apiUrl}/${slug}${fields}${population}${paramLocale}`);
+    const { data } = await axios.get(`${pageUrl}/${slug}${paramLocale}${fields}${population}`);
+    const dom = getDomFromAttributes(data);
     
-    return { ...domAttributes, data: slugData?.data ?? [] };
+    return dom;
   } catch (error) {
     throwError(error as any);
   }

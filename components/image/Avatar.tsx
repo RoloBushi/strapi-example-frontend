@@ -19,7 +19,7 @@ const imageStyle = {
 };
 
 const Avatar: FC<AvatarProps> = ({ imageUrl, size, alt, text }) => {
-  if (!imageUrl) {
+  if (!imageUrl && text) {
     return (
       <Flex
         w={size}

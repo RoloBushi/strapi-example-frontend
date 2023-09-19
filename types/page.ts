@@ -38,15 +38,11 @@ export interface ImageContent {
   updatedAt: string | null;
   url: string;
   width: number;
+  id: any;
 };
 
-export interface ImageAttributes {
-  attributes: ImageContent;
-  id: any;
-}
-
 export interface Image {
-  data?: ImageAttributes;
+  data?: ImageContent;
 }
 
 export interface Link {
@@ -79,7 +75,7 @@ export interface MetaContent {
 
 export interface MetaProps {
   id: any;
-  image?: Image;
+  image?: ImageContent;
   structuredData?: any;
   title?: string | null;
   description?: string | null;
@@ -91,7 +87,7 @@ export interface HeroProps {
   id: any;
   title?: string;
   Subtitle?: string | null;
-  hero?: { data?: ImageAttributes[] | null };
+  hero?: ImageContent[] | null;
 }
 
 export interface HeaderProps {
@@ -125,30 +121,23 @@ export interface HomeInfo {
   textBlock: TextBlockProps[];
 }
 
+export interface MoviesInfo {
+  Name?: string;
+  Year?: string;
+  Slug?: string;
+  poster?: ImageContent;
+  id: any;
+}
+
 export interface PageInfo extends HomeInfo {
-  data: [{
-    attributes: {
-      Name?: string;
-      Year?: string;
-      Slug?: string;
-      poster?: Image;
-    }
-    id: any;
-  }];
+  content: MoviesInfo[];
 }
 
 export interface DirectorInfo extends HomeInfo {
   name: string;
   id?: string;
-  avatar?: Image;
-  movies?: PageInfo;
-}
-
-export interface DirectorProps {
-  data: {
-    attributes: DirectorInfo,
-    id: string;
-  }
+  avatar?: ImageContent;
+  movies?: MoviesInfo[];
 }
 
 export interface DetailsInfo extends HomeInfo {
